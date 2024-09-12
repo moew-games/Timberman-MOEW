@@ -24,7 +24,7 @@ initKeyboard();
 resizeScreen(true);
 
 // Load sprites
-const background = loadSprite("assets/image/background.png", onReady);
+const background = loadSprite("assets/image/background.jpg", onReady);
 const title = loadSprite("assets/image/title.png", onReady);
 
 // Intro
