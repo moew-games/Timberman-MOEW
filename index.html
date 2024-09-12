@@ -8,6 +8,16 @@
 	
 	<style type="text/css">
 		body { margin: 0px; padding: 0; overflow: hidden; }
+		/* Remove focus outlines */
+		button:focus, canvas:focus {
+			outline: none;
+		}
+
+		/* Disable touch highlight color on mobile devices */
+		canvas, button {
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0); /* iOS Safari */
+		}
+
 		
 	</style>
 	
