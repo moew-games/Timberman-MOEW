@@ -1,9 +1,8 @@
 // Load Progress 
-let loadProgress = 0, countSprites = 24;
+let loadProgress = 0, countSprites = 25;
 
 // Level
-const levelLoad = 0;
-const levelMenu = 0;
+const levelMenu = 1;
 const levelPlay = 2;
 const levelGameOver = 3;
 let level = 0; 
@@ -106,28 +105,19 @@ function onReady() {
 function cutTheTree() {
     level = levelPlay
     if (mouseButton()) {
-        switch (level) {
-            case levelMenu:
-                level = levelLoad;
-                break;
-
-            case levelLoad:
-                man.action = true;
-                break;
-
-            case levelPlay:
-                if (mouseX() <= screenWidth() / 2) {
-                    man.data = "left";
-                    man.x = 263;
-                    flipSprite(man, 1, 1);
-                } else {
-                    man.data = "right";
-                    man.x = 800;
-                    flipSprite(man, -1, 1);
-                }
-                man.action = true;
-                break;
+        man.action = true;
+        if (mouseX() <= screenWidth() / 2) {
+            man.data = "left";
+            man.x = 263;
+            flipSprite(man, 1, 1);
+        } else {
+            man.data = "right";
+            man.x = 800;
+            flipSprite(man, -1, 1);
         }
+        man.action = true;
+               
+        
     }
 }
 
@@ -177,11 +167,6 @@ function gameOver() {
     }
 }
 
-function titleScreen() {
-    level = levelMenu;
-    
-}
-
 function renderGame() {
     let p = 0, m = 0;
     clearScreen("black");
@@ -226,9 +211,15 @@ function renderGame() {
         displaySprite(play, 2000, 2000);
     }
     if (level == levelMenu) {
-        displaySprite(title, 280, 200);
-
-        
+        // title screen
+        displaySprite(title, 280, 200); 
+    } else  {
+        //score
+        for (let i = 0; i < score.toString().length; i++) {
+            p = score.toString().substring(i, i + 1);
+            m = screenWidth() / 2 - 35 * score.toString().length;
+            displaySprite(number[p], m + 67 * i, 700);
+        }
     }
 
     // Display Progress Bar
@@ -245,15 +236,6 @@ function renderGame() {
         displaySprite(man)
     }
 
-    // Display Score
-    if(level !== levelMenu) {
-        for (let i = 0; i < score.toString().length; i++) {
-            p = score.toString().substring(i, i + 1);
-            m = screenWidth() / 2 - 35 * score.toString().length;
-            displaySprite(number[p], m + 67 * i, 700);
-        }
-    }
- 
 
     // Animation status
     if (!animationActive(man, "cut")) {
@@ -264,10 +246,6 @@ function renderGame() {
 
     // Action
     if (man.action) {
-        if (level === levelLoad) {
-            level = levelPlay;
-        }
-
         // Joue le son "cut"
         playAnimation(man, "cut");
         playSound(cut);
