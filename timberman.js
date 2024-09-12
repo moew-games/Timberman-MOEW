@@ -57,7 +57,6 @@ const timebar = loadSprite("assets/image/time-bar.png", onReady);
 // Load Sound
 const cut = loadSound("assets/sound/cut.mp3");
 const death = loadSound("assets/sound/death.mp3");
-const menubar = loadSound("assets/sound/menu.mp3");
 
 function onReady() {
     loadProgress++;
